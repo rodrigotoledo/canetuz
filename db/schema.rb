@@ -14,8 +14,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_05_035304) do
   create_table "points", force: :cascade do |t|
     t.integer "store_id", null: false
     t.integer "user_id", null: false
-    t.time "login_at"
-    t.time "logout_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "latitude"
@@ -27,8 +25,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_05_035304) do
   create_table "stores", force: :cascade do |t|
     t.string "name"
     t.string "address"
-    t.string "login_at"
-    t.string "logout_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
