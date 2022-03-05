@@ -1,0 +1,45 @@
+<h2>Preencha os campos e clique em bater ponto</h1>
+<%=form_with url: register_path do |f| %>
+  <div class="field">
+    <%= f.select :email, User.all.map{|t| [t.email, t.id]}, {include_blank: 'Email'}, {class: 'form-select', required: true} %>
+  </div>
+
+  <div class="field mt-3">
+    <%= f.select :store_id, Store.all.map{|t| [t.name, t.id]}, {include_blank: 'Loja'}, {class: 'form-select', required: true} %>
+  </div>
+
+  <%= f.submit 'Bater Ponto', class: 'btn btn-primary' %>
+<% end %>
+<hr>
+<h2>Ou selecione o funcionário e data para saber as horas</h1>
+<%=form_with url: root_path, method: :get do |f| %>
+  <div class="field">
+    <%= f.select :email, User.all.map{|t| [t.email, t.id]}, {include_blank: 'Email'}, {class: 'form-select', required: true} %>
+  </div>
+
+  <div class="form-group mt-3">
+    <%= f.text_field :login_at, type: :date, class: 'form-control', required: true %>
+  </div>
+
+  <%= f.submit 'Verificar horários', class: 'btn btn-primary' %>
+<% end %>
+<% if @points %>
+<table class="table table-light mt-3">
+  <thead class="thead-light">
+    <tr>
+      <th>Funcionário - <%=worked_hours(@points)%> minutos trabalhados</th>
+      <th>Loja</th>
+      <th>Horário</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @points.each do |point| %>
+    <tr>
+      <td><%=point.user.email%></td>
+      <td><%=point.store.name%></td>
+      <td><%=l point.created_at, format: :short%></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
